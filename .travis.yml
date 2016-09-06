@@ -1,0 +1,16 @@
+
+os:
+  - linux
+
+sudo: false
+
+language: node_js
+node_js:
+  - "6.4.0"
+
+script:
+  - npm run lint
+  - npm run test
+
+notifications:
+  email: false
