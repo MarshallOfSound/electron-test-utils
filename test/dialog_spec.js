@@ -37,7 +37,7 @@ describe('dialog module', () => {
     utils.dialog.nextOpenDialogCall(fileArr);
 
     const spy = sinon.spy();
-    electron.dialog.showOpenDialog({}, spy);
+    expect(electron.dialog.showOpenDialog({}, spy)).to.equal(undefined);
     spy.callCount.should.be.equal(1);
     spy.lastCall.args[0].should.be.deep.equal(fileArr);
   });
@@ -79,6 +79,19 @@ describe('dialog module', () => {
     const openDialogCall = utils.dialog.getOpenDialogCall(0);
     openDialogCall.should.have.property('args');
     openDialogCall.args.length.should.be.equal(2);
+    openDialogCall.args[0].should.be.deep.equal(options);
+  });
+
+  it('should return the path for the syncronous API', () => {
+    const fileArr = ['path/to/file'];
+    const options = { foo: 'bar' };
+    utils.dialog.nextOpenDialogCall(fileArr);
+
+    electron.dialog.showOpenDialog(options).should.be.deep.equal(fileArr);
+
+    const openDialogCall = utils.dialog.getOpenDialogCall(0);
+    openDialogCall.should.have.property('args');
+    openDialogCall.args.length.should.be.equal(1);
     openDialogCall.args[0].should.be.deep.equal(options);
   });
 });
