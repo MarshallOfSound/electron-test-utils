@@ -59,3 +59,4 @@ inside Electron.  Check out our module docs below.
 
 * [`dialog`](docs/dialog.md)
 * [`globalShortcut`](docs/globalShortcut.md)
+* [`powerMonitor`](docs/powerMonitor.md)
