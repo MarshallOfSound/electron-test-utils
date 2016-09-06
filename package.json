@@ -1,6 +1,6 @@
 {
   "name": "electron-test-utils",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Test Utilities to help with Electron App Testing",
   "main": "build/index.js",
   "scripts": {
