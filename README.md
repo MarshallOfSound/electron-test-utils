@@ -54,8 +54,7 @@ that you get a clean slate during each test.
 
 ## So what can it do?
 
-Currently we only support the following API's and only in the `main` process
-inside Electron.  Check out our module docs below.
+Currently we only support the following API's.  Check out our module docs below.
 
 * [`dialog`](docs/dialog.md)
 * [`globalShortcut`](docs/globalShortcut.md)
