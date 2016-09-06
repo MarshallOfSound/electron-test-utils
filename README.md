@@ -37,7 +37,7 @@ describe('my wonderful test suite', () => {
     // If this function requires openDialog it will be given ['path/to/file']
     const file = myOpenFileFn();
     file.should.be.equal('file_content');
-  })
+  });
 
   afterEach(() => {
     reset();
