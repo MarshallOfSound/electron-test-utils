@@ -19,7 +19,7 @@ class GlobalShortcutUtil {
   }
 
   utils() {
-    const ret = {
+    return {
       simulate: (accelerator) => {
         if (this.hooks[accelerator]) {
           this.hooks[accelerator]();
@@ -27,7 +27,6 @@ class GlobalShortcutUtil {
       },
       registeredAccelerators: () => Object.keys(this.hooks),
     };
-    return ret;
   }
 
   reset() {

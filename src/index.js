@@ -9,7 +9,7 @@ if (!process.versions.electron) {
 }
 const electron = require('electron');
 
-const modules = ['dialog', 'globalShortcut'];
+const modules = ['dialog', 'globalShortcut', 'powerMonitor'];
 const resetFns = [];
 
 export const utils = {};

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-import chai, { expect } from 'chai';
+import chai from 'chai';
 import sinon from 'sinon';
 
 import { initialize, reset, utils } from '../';

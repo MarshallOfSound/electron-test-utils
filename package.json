@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "babel src --out-dir build",
-    "lint": "eslint src",
+    "lint": "eslint src test",
     "pretest": "npm run build",
     "prepublish": "npm run build",
     "test": "electron-mocha test --compilers js:babel-core/register"
