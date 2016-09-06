@@ -6,16 +6,17 @@ class GlobalShortcutUtil {
   }
 
   patch(electron) {
-    electron.globalShortcut.register = (accelerator, callback) => {
+    const globalShortcutObject = (electron.globalShortcut || electron.remote.globalShortcut);
+    globalShortcutObject.register = (accelerator, callback) => {
       if (this.hooks[accelerator]) {
         return false;
       }
       this.hooks[accelerator] = callback;
       return true;
     };
-    electron.globalShortcut.isRegistered = (accelerator) => !!this.hooks[accelerator];
-    electron.globalShortcut.unregister = (accelerator) => delete this.hooks[accelerator];
-    electron.globalShortcut.unregisterAll = () => this.reset();
+    globalShortcutObject.isRegistered = (accelerator) => !!this.hooks[accelerator];
+    globalShortcutObject.unregister = (accelerator) => delete this.hooks[accelerator];
+    globalShortcutObject.unregisterAll = () => this.reset();
   }
 
   utils() {

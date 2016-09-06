@@ -8,7 +8,9 @@
     "lint": "eslint src test",
     "pretest": "npm run build",
     "prepublish": "npm run build",
-    "test": "electron-mocha test --compilers js:babel-core/register"
+    "test": "npm run test-main && npm run test-renderer",
+    "test-main": "electron-mocha test --compilers js:babel-core/register",
+    "test-renderer": "npm run test-main -- --renderer"
   },
   "keywords": [
     "electron",

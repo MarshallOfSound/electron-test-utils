@@ -6,7 +6,7 @@ class PowerMonitorUtil {
   }
 
   patch(electron) {
-    this.emitter = electron.powerMonitor;
+    this.emitter = electron.powerMonitor || electron.remote.powerMonitor;
   }
 
   utils() {

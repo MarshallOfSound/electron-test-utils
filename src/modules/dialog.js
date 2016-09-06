@@ -29,7 +29,8 @@ class DialogUtil {
 
   patch(electron) {
     dialogTypes.forEach((dialogType) => {
-      electron.dialog[`show${dialogType}`] = this.mockDialog.bind(this, dialogType);
+      const dialogObject = (electron.dialog || electron.remote.dialog);
+      dialogObject[`show${dialogType}`] = this.mockDialog.bind(this, dialogType);
     });
   }
 

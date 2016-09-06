@@ -16,6 +16,7 @@ describe('powerMonitor module', () => {
 
   beforeEach(() => {
     electron = require('electron'); // eslint-disable-line
+    if (!electron.powerMonitor) electron.powerMonitor = electron.remote.powerMonitor;
   });
 
   afterEach(() => {
@@ -28,12 +29,16 @@ describe('powerMonitor module', () => {
   });
 
   const testEvent = (eventName, methodName) => {
-    it(`should simulate the ${eventName} event`, () => {
+    it(`should simulate the ${eventName} event`, (done) => {
       const spy = sinon.spy();
       electron.powerMonitor.on(eventName, spy);
       spy.callCount.should.be.equal(0);
       utils.powerMonitor[`simulate${methodName}`]();
-      spy.callCount.should.be.equal(1);
+      // In renderer this is async over remote IPC
+      setTimeout(() => {
+        spy.callCount.should.be.equal(1);
+        done();
+      }, 20);
     });
   };
 

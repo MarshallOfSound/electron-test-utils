@@ -16,6 +16,7 @@ describe('dialog module', () => {
 
   beforeEach(() => {
     electron = require('electron'); // eslint-disable-line
+    if (!electron.dialog) electron.dialog = electron.remote.dialog; // Map for renderer process
   });
 
   afterEach(() => {

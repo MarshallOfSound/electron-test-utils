@@ -16,6 +16,7 @@ describe('globalShortcut module', () => {
 
   beforeEach(() => {
     electron = require('electron'); // eslint-disable-line
+    if (!electron.globalShortcut) electron.globalShortcut = electron.remote.globalShortcut;
   });
 
   afterEach(() => {
