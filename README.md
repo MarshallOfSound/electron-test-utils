@@ -1,5 +1,12 @@
 # Electron Test Utils
 
+[![Build Status](https://travis-ci.org/MarshallOfSound/electron-test-utils.svg?branch=master)](https://travis-ci.org/MarshallOfSound/electron-test-utils)
+[![npm version](https://badge.fury.io/js/electron-test-utils.svg)](https://www.npmjs.com/package/electron-test-utils)
+[![npm](https://img.shields.io/npm/dt/electron-test-utils.svg?maxAge=2592000)](https://www.npmjs.com/package/electron-test-utils)
+[![license](https://img.shields.io/github/license/MarshallOfSound/electron-test-utils.svg?maxAge=2592000)](https://github.com/MarshallOfSound/electron-test-utils/blob/master/LICENSE)
+![status](https://img.shields.io/badge/Status-%20Ready%20for%20Awesome-red.svg)
+
+
 ## What is it?
 
 Electron test utils is a small utility to help test Electron apps that depend
