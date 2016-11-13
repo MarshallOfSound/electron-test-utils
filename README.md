@@ -24,6 +24,9 @@ It's really easy to use and integrates nicely into most test suites.
 Your tests need access to the Electron API's, the easiest way to
 achieve this is to use [`electron-mocha`](https://github.com/jprichardson/electron-mocha)
 
+**Note:** If you are running your tests with the `--renderer` flag in `electron-mocha`
+you also need to use the `--require-main` flag and point it at `electron-test-utils/build/main_inject`
+
 ```js
 import { initialize, reset, utils } from 'electron-test-utils';
 

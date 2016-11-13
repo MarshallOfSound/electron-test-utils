@@ -9,28 +9,35 @@ if (!process.versions.electron) {
 }
 const electron = require('electron');
 
-const modules = ['dialog', 'globalShortcut', 'powerMonitor'];
-const resetFns = [];
+if (process.type === 'browser') {
+  const modules = ['dialog', 'globalShortcut', 'powerMonitor'];
+  const resetFns = [];
 
-export const utils = {};
+  const utils = {};
 
-export const initialize = () => {
-  if (!initialized) {
-    Module.prototype.require = function fancyRequireElectronHack(moduleName, ...args) {
-      if (moduleName === 'electron') {
-        return electron;
-      }
-      return originalRequire.call(this, moduleName, ...args);
-    };
-    initialized = true;
+  const initialize = () => {
+    if (!initialized) {
+      Module.prototype.require = function fancyRequireElectronHack(moduleName, ...args) {
+        if (moduleName === 'electron') {
+          return electron;
+        }
+        return originalRequire.call(this, moduleName, ...args);
+      };
+      initialized = true;
 
-    modules.forEach((moduleName) => {
-      const module = require(`./modules/${moduleName}`).default; // eslint-disable-line
-      module.patch(electron);
-      utils[moduleName] = module.utils();
-      resetFns.push(module.reset.bind(module));
-    });
-  }
-};
+      modules.forEach((moduleName) => {
+        const module = require(`./modules/${moduleName}`).default; // eslint-disable-line
+        module.patch(electron);
+        utils[moduleName] = module.utils();
+        resetFns.push(module.reset.bind(module));
+      });
+    }
+  };
 
-export const reset = () => resetFns.forEach((fn) => fn());
+  const reset = () => resetFns.forEach((fn) => fn());
+
+  module.exports = { utils, initialize, reset };
+  global.__electron_test_utils__ = module.exports; // eslint-disable-line
+} else {
+  module.exports = electron.remote.getGlobal('__electron_test_utils__');
+}

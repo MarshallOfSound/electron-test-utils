@@ -32,41 +32,44 @@ describe('dialog module', () => {
     expect(() => electron.dialog.showOpenDialog({}, () => {})).to.throw(Error);
   });
 
-  it('should mock the openDialog callback', () => {
+  it('should mock the openDialog callback', (done) => {
     const fileArr = ['path/to/file'];
     utils.dialog.nextOpenDialogCall(fileArr);
 
-    const spy = sinon.spy();
-    expect(electron.dialog.showOpenDialog({}, spy)).to.equal(undefined);
-    spy.callCount.should.be.equal(1);
-    spy.lastCall.args[0].should.be.deep.equal(fileArr);
+    expect(electron.dialog.showOpenDialog({}, (passedFiles) => {
+      passedFiles.should.be.deep.equal(fileArr);
+      done();
+    })).to.equal(undefined);
   });
 
-  it('should mock the openDialog callback if BrowserWindow is set', () => {
+  it('should mock the openDialog callback if BrowserWindow is set', (done) => {
     const fileArr = ['path/to/file'];
     utils.dialog.nextOpenDialogCall(fileArr);
 
-    const spy = sinon.spy();
-    electron.dialog.showOpenDialog({}, {}, spy);
-    spy.callCount.should.be.equal(1);
-    spy.lastCall.args[0].should.be.deep.equal(fileArr);
+    electron.dialog.showOpenDialog({}, {}, (passedFiles) => {
+      passedFiles.should.be.deep.equal(fileArr);
+      done();
+    });
   });
 
-  it('should mock sequential openDialog callbacks', () => {
+  it('should mock sequential openDialog callbacks', (done) => {
     const fileArr = ['path/to/file'];
     const fileArr2 = ['path/to/a/different/file'];
     utils.dialog.nextOpenDialogCall(fileArr);
     utils.dialog.nextOpenDialogCall(fileArr2);
+    let called = 0;
 
-    let spy = sinon.spy();
-    electron.dialog.showOpenDialog({}, spy);
-    spy.callCount.should.be.equal(1);
-    spy.lastCall.args[0].should.be.deep.equal(fileArr);
+    electron.dialog.showOpenDialog({}, (passedFiles) => {
+      passedFiles.should.be.deep.equal(fileArr);
+      called.should.equal(0);
+      called = 1;
+    });
 
-    spy = sinon.spy();
-    electron.dialog.showOpenDialog({}, spy);
-    spy.callCount.should.be.equal(1);
-    spy.lastCall.args[0].should.be.deep.equal(fileArr2);
+    electron.dialog.showOpenDialog({}, (passedFiles) => {
+      passedFiles.should.be.deep.equal(fileArr2);
+      called.should.equal(1);
+      done();
+    });
   });
 
   it('should get a openDialog call by index', () => {

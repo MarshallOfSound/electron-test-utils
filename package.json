@@ -10,7 +10,7 @@
     "prepublish": "npm run build",
     "test": "npm run test-main && npm run test-renderer",
     "test-main": "electron-mocha test --compilers js:babel-core/register",
-    "test-renderer": "npm run test-main -- --renderer"
+    "test-renderer": "npm run test-main -- --renderer --require-main ./build/main_inject"
   },
   "keywords": [
     "electron",

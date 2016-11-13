@@ -37,11 +37,11 @@ describe('globalShortcut module', () => {
     electron.globalShortcut.isRegistered('Ctrl+A').should.not.be.ok;
   });
 
-  it('should correctly simulate set accelerators', () => {
-    const spy = sinon.spy();
-    electron.globalShortcut.register('Ctrl+A', spy);
+  it('should correctly simulate set accelerators', (done) => {
+    electron.globalShortcut.register('Ctrl+A', () => {
+      done();
+    });
     utils.globalShortcut.simulate('Ctrl+A');
-    spy.callCount.should.be.equal(1);
   });
 
   it('should not simulate on not-set accelerators', () => {
